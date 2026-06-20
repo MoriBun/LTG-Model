@@ -62,25 +62,25 @@ Luồng xử lý: **encode document → pool sự kiện → toạ độ thời 
 
 ```
             ┌─────────────────────────── document text ───────────────────────────┐
-            │  Sliding-window encoder (RoBERTa / BERT, phủ trọn doc kể cả >512 tok) │
+            │  Sliding-window encoder (RoBERTa/BERT, phủ trọn doc kể cả > 512 tok)│
             └──────────────────────────────────┬──────────────────────────────────┘
                                   attention span-pooling mỗi sự kiện
-                                                ▼
+                                               ▼
                             z_i  (vector sự kiện, m sự kiện)
-                                                ▼
+                                               ▼
                       EventTimeHead:  s_i,  t_i = s_i + softplus(d_i) + eps
-                                                ▼
+                                               ▼
         ┌──────────────── Latent Timeline Graph Propagation (×graph_layers) ───────────────┐
-        │  node = [z; s; t; d] · edge = EdgeUpdate(h, geometry φ, sim_sem, sim_time)         │
-        │  DropEdge → Top-K theo attention → softmax theo node đích → GRU NodeUpdate          │
-        │  Mặc định **dense graph**: mọi cặp có hướng i≠j  (m·(m-1) cạnh)                     │
-        └──────────────────────────────────────┬───────────────────────────────────────────┘
-                                                ▼
-          ┌─────────── nhánh Allen (geometry) ───────────┐   ┌──── nhánh Relation (semantic) ────┐
-          │  AllenDecoder: công thức hình học mỗi nhãn    │   │  RelationEncoder h_ij=FFN([z_i;z_j])│
-          │  từ interval (s_i,t_i,s_j,t_j) → z_geo         │   │  RelationDecoder → z_rel            │
-          └───────────────────────┬──────────────────────┘   └──────────────┬─────────────────────┘
-                                  └──────── logits = z_rel + α·z_geo ────────┘
+        │  node = [z; s; t; d] · edge = EdgeUpdate(h, geometry φ, sim_sem, sim_time)       │
+        │  DropEdge → Top-K theo attention → softmax theo node đích → GRU NodeUpdate       │
+        │  Mặc định **dense graph**: mọi cặp có hướng i≠j  (m·(m-1) cạnh)                  │
+        └─────────────────────┬──────────────────────────────────────────────┬─────────────┘
+                              ▼                                              ▼
+        ┌─────────── nhánh Allen (geometry) ───────────┐   ┌──── nhánh Relation (semantic) ──────┐
+        │  AllenDecoder: công thức hình học mỗi nhãn   │   │  RelationEncoder h_ij=FFN([z_i;z_j])│
+        │  từ interval (s_i,t_i,s_j,t_j) → z_geo       │   │  RelationDecoder → z_rel            │
+        └───────────────────────┬──────────────────────┘   └───────────────┬─────────────────────┘
+                                └──────── logits = z_rel + α·z_geo ────────┘
 ```
 
 ### Thành phần chính
