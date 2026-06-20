@@ -2,7 +2,7 @@
 
 Mô hình trích xuất **quan hệ thời gian giữa các sự kiện** (Event Temporal Relation Extraction) ở mức tài liệu, kết hợp **Allen's Interval Algebra** với **Graph Propagation**. Mỗi sự kiện được ánh xạ thành một *khoảng thời gian tiềm ẩn* `(s, t)` trên trục thời gian, từ đó suy ra quan hệ giữa các cặp sự kiện bằng cả tín hiệu hình học (geometry) lẫn ngữ nghĩa (relation).
 
-Đây là phần code của khoá luận tốt nghiệp (KLTN). Repo cung cấp 2 notebook end-to-end với 2 backbone encoder khác nhau và 4 bộ dữ liệu chuẩn.
+Repo cung cấp 2 notebook end-to-end với 2 backbone encoder khác nhau và 4 bộ dữ liệu chuẩn.
 
 ---
 
