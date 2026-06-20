@@ -73,12 +73,12 @@ Processing flow: **encode document → pool events → latent time coordinates �
         ┌──────────────── Latent Timeline Graph Propagation (×graph_layers) ───────────────┐
         │  node = [z; s; t; d] · edge = EdgeUpdate(h, geometry φ, sim_sem, sim_time)       │
         │  DropEdge → Top-K by attention → softmax over destination node → GRU NodeUpdate  │
-        │  Default **dense graph**: every directed pair i≠j  (m·(m-1) edges)              │
+        │  Default **dense graph**: every directed pair i≠j  (m·(m-1) edges)               │
         └─────────────────────┬──────────────────────────────────────────────┬─────────────┘
                               ▼                                              ▼
-        ┌─────────── Allen branch (geometry) ───────────┐   ┌──── Relation branch (semantic) ──────┐
-        │  AllenDecoder: per-label geometric formula    │   │  RelationEncoder h_ij=FFN([z_i;z_j]) │
-        │  from interval (s_i,t_i,s_j,t_j) → z_geo       │   │  RelationDecoder → z_rel            │
+        ┌─────────── Allen branch (geometry) ──────────┐   ┌──── Relation branch (semantic) ─────┐
+        │  AllenDecoder: per-label geometric formula   │   │  RelationEncoder h_ij=FFN([z_i;z_j])│
+        │  from interval (s_i,t_i,s_j,t_j) → z_geo     │   │  RelationDecoder → z_rel            │
         └───────────────────────┬──────────────────────┘   └───────────────┬─────────────────────┘
                                 └──────── logits = z_rel + α·z_geo ────────┘
 ```
